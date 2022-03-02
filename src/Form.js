@@ -9,7 +9,7 @@ export default function Form() {
 
     function handleSubmit(event) {
         event.preventDefault()
-        setState(state => ({...state, word: searchedWord}))
+        setState(state => ({...state, word: searchedWord, data: {}, ready: false}))
     }
 
     function handleChange(event) {
