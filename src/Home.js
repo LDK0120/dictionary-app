@@ -1,25 +1,12 @@
 import React, { useContext } from "react";
-import {Context} from "./Context"
+import { Context } from "./Context.js"
 
 export default function Home() {
-
-    const { word, setWord } = useContext(Context)
-
-function handleSubmit(event) {
-    event.preventDefault()
-}
-
-function handleChange(event) {
-    setWord(event.target.value)
-}
-
+    const [state, setState] = useContext(Context) 
     return (
-        <div className="Home">
-        <h1>Dictionary App</h1>
-        <form onSubmit={handleSubmit}>
-            <input onChange={handleChange} type="text" placeholder="Search a word" required></input>
-            <button>Search</button>
-        </form>
+        <div>
+        <h1>Searched Word:</h1>
+        <p>{state.word}</p>
         </div>
     )
 }

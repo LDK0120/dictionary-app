@@ -1,32 +1,17 @@
-import React, {useState, useMemo} from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
-const Context = React.createContext({
-    word: '',
-    setWord: () => {}
-});
+const Context = React.createContext([{}, () => {}]);
 
-function ContextProvider({children}) {
+const ContextProvider = (props) => {
 
-    const [word,setWord] = useState('')
-  const value = useMemo(
-    () => ({ word, setWord}), [word]
-  )
+        const [state, setState] = useState({});
 
-let url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=ddbc0656-4d77-4ac3-8e25-ab492ce02f2f`
+        return (
+            <Context.Provider value={[state, setState]}>
+                {props.children}
+            </Context.Provider>
 
-// function handleData(response) {
-//     console.log(response.data)
-// }
-//axios.get(url).then(handleData)
+        )
+    }
 
-return (
-
-        <Context.Provider value={value}>
-            {children}
-        </Context.Provider>
-    )
-
-}
-
-export {ContextProvider, Context}
+export {Context, ContextProvider}
