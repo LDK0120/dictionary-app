@@ -1,48 +1,49 @@
-import React, { useContext } from "react";
-import { Context } from "./Context.js";
+import React, { useState } from "react";
 import axios from "axios";
+import List from "./List";
+import Form from "./Form";
 
 export default function Home() {
-    const [state, setState] = useContext(Context) 
-    
-    let wordToSearch = state.word
+    const [result, setResult] = useState({ready: false})
     const apiKey = 'ddbc0656-4d77-4ac3-8e25-ab492ce02f2f'
-    const apiUrl = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${wordToSearch}?key=${apiKey}`
-
-    console.log(state.word)
+    const apiUrl = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/word?key=${apiKey}`
 
     function handleResponse(response) {
 
-                console.log("api call made")
+     setResult({
+            word: response.data[0].meta.id,
+            grammar: response.data[0].fl,
+            definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
+            synonyms: response.data[0].meta.syns[0],
+            ready: true
+        })    }
 
-            setState(state => ({...state, data: {
-                word: response.data[0].meta.id,
-                grammar: response.data[0].fl,
-                definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
-                synonym: response.data[0].meta.syns[0]
-            }, ready: true}))
-        }
 
-    if (state.ready) {
+    if(result.ready) {
         return (
             <div>
-                <h1>Searched Words:</h1>
+                <Form />
+                <h1>Example:</h1>
                     <div className="box">
-                        <h1>{state.data.word}</h1>
-                        <p>{state.data.grammar}</p>
-                        <p>Definition: {state.data.definition}</p>
-                        <p>Synonyms: {state.data.synonym.map(item => (<p>{item}</p>))}</p>
+                        <h1>{result.word}</h1>
+                        <p>{result.grammar}</p>
+                        <p>Definition: {result.definition}</p>
+                        <div>Synonyms: {result.synonyms.map(synonym => (<p key={synonym}>{synonym}</p>))}</div>
                     </div>
+
+                    <List />
             </div>
         )
     } else {
         axios.get(apiUrl).then(handleResponse)
         return (
-            <div>
-                <h1 />
+            <div className="box">
+                <Form />
+                <h1>Example Loading...</h1>
             </div>
         )
+    }
+}
 
-    }
-    }
-    
+
+       

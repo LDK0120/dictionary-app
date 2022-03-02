@@ -1,9 +1,8 @@
 import React from "react";
-import {Link, Routes, Route} from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from './Home';
 import MyList from './MyList';
-import Form from "./Form";
 
 
 export default function App() {
@@ -15,8 +14,6 @@ export default function App() {
         <Link to="/">Home</Link>
         <Link to="/mylist">My List</Link>
       </nav>
-
-      <Form />
     <main>
       <Routes>
         <Route exact path="/" element={<Home />} />
