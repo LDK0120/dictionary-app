@@ -26,13 +26,13 @@ export default function Form() {
                 definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
                 synonyms: response.data[0].meta.syns[0],
                 key: response.data[0].meta.uuid, 
-                dataReady: true
+                searchedWord: searchedWord
             }
 
             let newArr = state.data.concat(newObj)
 
 
-setState(state => ({...state, data: newArr, status: response.statusText, searchedWord: searchedWord}))
+setState(state => ({...state, data: newArr}))
         }})
 
 
@@ -53,6 +53,3 @@ setState(state => ({...state, data: newArr, status: response.statusText, searche
         </form>
     )
 }
-
-
-//when the form gets submitted, I want to make an api call with that searchedWord. Then, I want to save the result in the state.
