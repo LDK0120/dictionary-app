@@ -19,7 +19,7 @@ export default function Form() {
         }
 
         if (prevData.includes(searchedWord)) {
-            alert(`"${searchedWord}" already present in the list`)
+            alert(`"${searchedWord}" already in the list`)
         } else if (!prevData.includes(searchedWord)) {
             axios.get(apiUrl).then(response =>
             {
@@ -55,7 +55,7 @@ setState(state => ({...state, data: newArr}))
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" onChange={handleChange} value={searchedWord} placeholder="Search a word" required></input>
+            <input type="text" onChange={handleChange} placeholder="Search a word" required autoFocus="on" autoComplete="off"></input>
             <button>Search</button>
         </form>
     )

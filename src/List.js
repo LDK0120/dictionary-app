@@ -6,14 +6,32 @@ export default function List() {
     const [state, setState] = useContext(Context)
 
     function addToMyList(event) {
-        console.log(event.target.id)
-
+        console.log(state.data.length)
         let newListItem = state.data[event.target.id]
-        console.log(newListItem)
+        let word = newListItem.word
+
+        for (const item of state.inMyList) {
+            console.log(item)
+            if(word === item) {
+                alert(`${word} already in my list`)
+            }
+        }
+
         let newList = state.myList.concat(newListItem)
 
-        setState(state=> ({...state, myList: newList}))
+        let newDataList = state.data.splice((event.target.id -1),1)
 
+        for (const item of newDataList) {
+            item.index = item.index - 1
+
+            if(item.index < 0) {
+                newDataList = []
+            }
+        }
+
+        setState(state=> ({...state, data: newDataList, myList: newList, inMyList: [...state.inMyList, word]}))
+        console.log(state.data.length)
+        alert(`"${word}" added to My List`)
     }
 
     if (state.data.length > 0) {
