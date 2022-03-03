@@ -19,13 +19,19 @@ export default function Form() {
             } else if(response.data[0] === undefined) {
                 alert("Please check your spelling")
             } else {
-setState(state => ({...state, data: {
+
+                let newObj = {
                 word: response.data[0].meta.id,
                 grammar: response.data[0].fl,
                 definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
                 synonyms: response.data[0].meta.syns[0],
                 key: response.data[0].meta.uuid
-            }, dataReady: true, status: response.statusText, searchedWord: searchedWord}))
+            }
+
+            let newArr = state.data.concat(newObj)
+
+
+setState(state => ({...state, data: newArr, dataReady: true, status: response.statusText, searchedWord: searchedWord}))
         }})
 
 
