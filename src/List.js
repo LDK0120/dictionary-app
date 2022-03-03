@@ -11,6 +11,14 @@ export default function List() {
             <h1>List of searched words: </h1>
             <p>loading...</p>
             <p>{state.data.length}</p>
+            {state.data.map(item=> (
+                    <div className="box">
+                        <h1>{item.word}</h1>
+                        <p>{item.grammar}</p>
+                        <p>{item.definition}</p>
+                        {item.dataReady? <div>Synonyms: {item.synonyms.map(synonym => (<p key={synonym}>{synonym}</p>))}</div> : <p>No searched word</p>}
+                    </div>
+            ))}
             </div>
         )
         

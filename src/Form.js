@@ -25,13 +25,14 @@ export default function Form() {
                 grammar: response.data[0].fl,
                 definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
                 synonyms: response.data[0].meta.syns[0],
-                key: response.data[0].meta.uuid
+                key: response.data[0].meta.uuid, 
+                dataReady: true
             }
 
             let newArr = state.data.concat(newObj)
 
 
-setState(state => ({...state, data: newArr, dataReady: true, status: response.statusText, searchedWord: searchedWord}))
+setState(state => ({...state, data: newArr, status: response.statusText, searchedWord: searchedWord}))
         }})
 
 
