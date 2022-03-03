@@ -12,7 +12,16 @@ export default function Form() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        axios.get(apiUrl).then(response =>
+        let prevData=[]; 
+
+        for (const item of state.data) {
+            prevData.push(item.word)
+        }
+
+        if (prevData.includes(searchedWord)) {
+            alert("searched word already present in the list")
+        } else if (!prevData.includes(searchedWord)) {
+            axios.get(apiUrl).then(response =>
             {
             if (response.data[0].meta === undefined) {
                 alert("Please check your spelling")
@@ -26,7 +35,8 @@ export default function Form() {
                 definition: response.data[0].def[0].sseq[0][0][1].dt[0][1],
                 synonyms: response.data[0].meta.syns[0],
                 key: response.data[0].meta.uuid, 
-                searchedWord: searchedWord
+                searchedWord: searchedWord,
+                dataReady: true
             }
 
             let newArr = state.data.concat(newObj)
@@ -34,11 +44,7 @@ export default function Form() {
 
 setState(state => ({...state, data: newArr}))
         }})
-
-
-            
-
-        console.log("api called")
+        }
     }
 
     function handleChange(event) {

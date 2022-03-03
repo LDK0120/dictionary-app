@@ -12,11 +12,11 @@ export default function List() {
             <h1>List of searched words:</h1>
             {state.data.map(item => (
                 <div className="box" key={item.key}>
-                    {item.word !== item.searchedWord? <em>Searched word not found. Similar search result:</em> : <h1 />}
+                    {item.word !== item.searchedWord? <em>Searched word not found. Similar search result:</em> : <span></span>}
                     <h1>{item.word}</h1>
                     <p>{item.grammar}</p>
                     <p>{item.definition}</p>
-                    <div>Synonyms: {item.synonyms.map(synonym=>{<p key={synonym}>{synonym}</p>})}</div>
+                    {item.dataReady? <div>Synonyms: {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div> : <div>no synonym found</div>}
                     <div>
                         <button className="add-to-my-list">Add to My List</button>
                         <button className="remove">Remove from Search List</button>
