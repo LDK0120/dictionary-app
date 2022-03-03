@@ -19,7 +19,7 @@ export default function Form() {
         }
 
         if (prevData.includes(searchedWord)) {
-            alert("searched word already present in the list")
+            alert(`"${searchedWord}" already present in the list`)
         } else if (!prevData.includes(searchedWord)) {
             axios.get(apiUrl).then(response =>
             {
@@ -36,7 +36,8 @@ export default function Form() {
                 synonyms: response.data[0].meta.syns[0],
                 key: response.data[0].meta.uuid, 
                 searchedWord: searchedWord,
-                dataReady: true
+                dataReady: true,
+                index: state.data.length
             }
 
             let newArr = state.data.concat(newObj)
