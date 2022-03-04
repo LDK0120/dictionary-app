@@ -6,33 +6,63 @@ export default function List() {
     const [state, setState] = useContext(Context)
 
     function addToMyList(event) {
-        console.log(state.data.length)
-        let newListItem = state.data[event.target.id]
-        let word = newListItem.word
+        let itemIndex = parseInt(event.target.id)
+        let word = state.data[event.target.id].word
+        let itemData = state.data[event.target.id]
+        let newMyList = state.myList
+        let newDataList=[]
 
-        for (const item of state.inMyList) {
-            console.log(item)
-            if(word === item) {
-                alert(`${word} already in my list`)
+        if(itemIndex === "0"){
+
+            if (state.inMyList.includes(word)) {
+                alert(`"${word}" already in my list`)
+            } else {
+
+            for(const data of state.data) {
+                data.index = data.index - 1
+                newMyList = state.myList.concat(state.data[event.target.id])
             }
+
+            for(const item of state.data) {
+                if (item.index !== -1){
+                    newDataList.push(item)
+                }
+            }
+            alert(`"${word}" added to my list`)
+            setState(state=> ({...state, data:newDataList, myList:newMyList, inMyList: [...state.inMyList, word]}))
+        }
+        } else { 
+
+            if (state.inMyList.includes(word)) {
+                alert(`"${word}" already in my list`)
+            } else {
+
+                alert(`"${word}" added to my list`)
+
+                newMyList = newMyList.concat(itemData)
+
+                for(const item of state.data) {
+                if (item.index !== itemIndex){
+                    newDataList.push(item)
+                }
+                }
+
+                for (const list of newDataList) {
+                    if(list.index > itemIndex) {
+                        list.index = list.index - 1
+                    }
+                }
+
+
+                
+
+                setState(state=> ({...state, data:newDataList, myList: newMyList, inMyList: [...state.inMyList, word]}))
         }
 
-        let newList = state.myList.concat(newListItem)
-
-        let newDataList = state.data.splice((event.target.id -1),1)
-
-        for (const item of newDataList) {
-            item.index = item.index - 1
-
-            if(item.index < 0) {
-                newDataList = []
-            }
         }
-
-        setState(state=> ({...state, data: newDataList, myList: newList, inMyList: [...state.inMyList, word]}))
-        console.log(state.data.length)
-        alert(`"${word}" added to My List`)
+            
     }
+    
 
     if (state.data.length > 0) {
 
