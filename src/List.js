@@ -28,8 +28,8 @@ export default function List() {
                     newDataList.push(item)
                 }
             }
-            alert(`"${word}" added to my list`)
             setState(state=> ({...state, data:newDataList, myList:newMyList, inMyList: [...state.inMyList, word]}))
+            alert(`"${word}" added to my list`)
         }
         } else { 
 
@@ -80,8 +80,8 @@ export default function List() {
             i++;
         }
 
-        alert(`"${word}" removed from the list`)
         setState(state=>({...state, data:newDataList}))
+        alert(`"${word}" removed from the list`)
     }
     
 
@@ -93,7 +93,6 @@ export default function List() {
             {state.data.map(item => (
                 <div className="box" key={item.key}>
                     {item.word !== item.searchedWord? <em>Searched word not found. Similar search result:</em> : <span></span>}
-                    <p>{item.index}</p>
                     <h1>{item.word}</h1>
                     <p>{item.grammar}</p>
                     <p>{item.definition}</p>
