@@ -62,6 +62,27 @@ export default function List() {
         }
             
     }
+
+    function removeFromList(event){
+        let itemIndex= parseInt(event.target.id) - 1
+        const word = state.data[itemIndex].word
+        let newDataList = []
+        let i=0;
+
+        for (const item of state.data) {
+            if (item.index !== itemIndex) {
+                newDataList.push(item)
+            }
+        }
+
+        for(const item of newDataList) {
+            item.index = i;
+            i++;
+        }
+
+        alert(`"${word}" removed from the list`)
+        setState(state=>({...state, data:newDataList}))
+    }
     
 
     if (state.data.length > 0) {
@@ -79,7 +100,7 @@ export default function List() {
                     {item.dataReady? <div>Synonyms: {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div> : <div>no synonym found</div>}
                     <div>
                         <button className="add-to-my-list" id={item.index} onClick={addToMyList}>Add to My List</button>
-                        <button className="remove">Remove from Search List</button>
+                        <button className="remove" id={item.index + 1} onClick={removeFromList}>Remove from Search List</button>
                     </div>
                 </div>
             ))}
