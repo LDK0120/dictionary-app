@@ -88,19 +88,20 @@ export default function List() {
     if (state.data.length > 0) {
 
         return (
-            <div>
+            <div class="List">
             <h1>List of searched words:</h1>
             {state.data.map(item => (
                 <div className="box" key={item.key}>
                     {item.word !== item.searchedWord? <em>Searched word not found. Similar search result:</em> : <span></span>}
-                    <h1>{item.word}</h1>
-                    <p>{item.grammar}</p>
-                    <p>{item.definition}</p>
-                    {item.dataReady? <div>Synonyms: {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div> : <div>no synonym found</div>}
-                    <div>
+                    <div className="buttons">
                         <button className="add-to-my-list" id={item.index} onClick={addToMyList}>Add to My List</button>
                         <button className="remove" id={item.index + 1} onClick={removeFromList}>Remove from Search List</button>
                     </div>
+                    <h1>{item.word}</h1>
+                    <p className="parts">{item.grammar}</p>
+                    <p><span className="purple-text">Definition:</span><br /> {item.definition}</p>
+                    {item.dataReady? <div><span className="purple-text">Synonyms:</span> {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div> : <div>no synonym found</div>}
+                
                 </div>
             ))}
 

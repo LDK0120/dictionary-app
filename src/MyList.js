@@ -30,17 +30,17 @@ export default function MyList() {
     }
 
     return (
-        <div>
+        <div className="my-list">
         <h1>Mylist</h1>
 
 
             {state.myList.map(item=> (
                 <div className="box" key={item.key}>
+                    <div className="buttons"><button className="remove" id={item.key} onClick={handleClick}>Remove from My List</button></div>
                     <h1>{item.word}</h1>
-                    <p>{item.grammar}</p>
-                    <p>{item.definition}</p>
-                    <div>Synonyms: {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div>
-                    <button className="remove" id={item.key} onClick={handleClick}>Remove from My List</button>
+                    <p className="parts">{item.grammar}</p>
+                    <p><span className="purple-text">Definition:</span><br /> {item.definition}</p>
+                    <div className="syns"><span className="purple-text">Synonyms:</span> {item.synonyms.map(synonym=>(<p key={synonym}>{synonym}</p>))}</div>
                 </div>
             ))}
 

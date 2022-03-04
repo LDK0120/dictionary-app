@@ -21,17 +21,20 @@ export default function Home() {
 
     if(result.ready) {
         return (
-            <div>
+            <div className="Home">
                 <Form />
+                <div className="example">
                 <h1>Example:</h1>
                     <div className="box">
                         <h1>{result.word}</h1>
-                        <p>{result.grammar}</p>
-                        <p>Definition: {result.definition}</p>
-                        <div>Synonyms: {result.synonyms.map(synonym => (<p key={synonym}>{synonym}</p>))}</div>
+                        <p className="parts">{result.grammar}</p>
+                        <p><span className="purple-text">Definition:</span><br /> {result.definition}</p>
+                        <div className="syns"><span className="purple-text">Synonyms:</span> {result.synonyms.map(synonym => (<p key={synonym}>{synonym}</p>))}</div>
                     </div>
-
+                </div>
+                <div className="list">
                     <List />
+                </div>
             </div>
         )
     } else {

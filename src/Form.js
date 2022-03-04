@@ -55,7 +55,7 @@ setState(state => ({...state, data: newArr}))
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" onChange={handleChange} placeholder="Search a word" required autoFocus="on" autoComplete="off"></input>
+            <input type="text" onChange={handleChange} placeholder="Enter a word" required autoFocus="on" autoComplete="off"></input>
             <button>Search</button>
         </form>
     )

@@ -4,6 +4,12 @@ import './App.css';
 import Home from './Home';
 import MyList from './MyList';
 
+const linkStyle={
+  textDecoration: 'none',
+  fontSize: '1.2rem',
+  fontWeight: 'bolder'
+}
+
 
 export default function App() {
 
@@ -11,8 +17,10 @@ export default function App() {
     <div className="App">
       <nav className="navbar">
         <h1>Dictionary App</h1>
-        <Link to="/">Home</Link>
-        <Link to="/mylist">My List</Link>
+        <div className="navbar-links">
+        <Link to="/" style={linkStyle}>Home</Link>
+        <Link to="/mylist" style={linkStyle}>My List</Link>
+        </div>
       </nav>
     <main>
       <Routes>
