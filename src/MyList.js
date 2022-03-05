@@ -6,32 +6,31 @@ export default function MyList() {
     const [state, setState] = useContext(Context)
 
     function handleClick(event) {
-        const id = event.target.id
-        let myList = []
-        let i=0;
-        let word= ""
+        
+        const id= event.target.id
+        let word=""
 
         for(const item of state.myList) {
-            if (item.key !== id) {
-                myList.push(item)
-            } else {
+            if(item.key === id) {
                 word = item.word
             }
         }
 
-        for (const item of myList) {
-            item.index = i;
-            i++;
+        localStorage.removeItem(JSON.stringify(word))
+        let myList=[]
+        let localKeys = Object.keys(localStorage)
+        let j = localKeys.length
+
+        while(j--){
+            myList.push(JSON.parse(localStorage.getItem(localKeys[j])))
         }
 
         setState(state=>({...state, myList:myList}))
-        alert(`"${word}" removed from my list`)
-        console.log(state.myList)
-    }
 
+    }
+    
     return (
         <div className="my-list">
-        <h1>Mylist</h1>
 
 
             {state.myList.map(item=> (

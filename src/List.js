@@ -4,17 +4,33 @@ import {Context} from "./Context.js";
 export default function List() {
 
     const [state, setState] = useContext(Context)
-
+    
     function addToMyList(event) {
         let itemIndex = parseInt(event.target.id)
         let word = state.data[event.target.id].word
         let itemData = state.data[event.target.id]
         let newMyList = state.myList
         let newDataList=[]
+        let myListItems = []
+        let myListKeys = Object.keys(localStorage)
+        let k = myListKeys.length
+
+        while(k--){
+            myListItems.push(JSON.parse(localStorage.getItem(myListKeys[k])))
+        }
+
+        let words = []
+
+        for (const item of myListItems) {
+            words.push(item.word)
+        }
+
+
+        
 
         if(itemIndex === "0"){
 
-            if (state.inMyList.includes(word)) {
+            if (words.includes(word)) {      
                 alert(`"${word}" already in my list`)
             } else {
 
@@ -29,11 +45,14 @@ export default function List() {
                 }
             }
             setState(state=> ({...state, data:newDataList, myList:newMyList, inMyList: [...state.inMyList, word]}))
+
+            
+
             alert(`"${word}" added to my list`)
         }
         } else { 
 
-            if (state.inMyList.includes(word)) {
+            if (words.includes(word)) {     
                 alert(`"${word}" already in my list`)
             } else {
 
@@ -53,14 +72,11 @@ export default function List() {
                     }
                 }
 
-
-                
-
                 setState(state=> ({...state, data:newDataList, myList: newMyList, inMyList: [...state.inMyList, word]}))
         }
 
         }
-            
+
     }
 
     function removeFromList(event){
@@ -83,12 +99,17 @@ export default function List() {
         setState(state=>({...state, data:newDataList}))
         alert(`"${word}" removed from the list`)
     }
+
+
+    for (const data of state.myList) {
+            localStorage.setItem(JSON.stringify(data.word), JSON.stringify(data))
+        }
     
 
     if (state.data.length > 0) {
 
         return (
-            <div class="List">
+            <div className="List">
             <h1>List of searched words:</h1>
             {state.data.map(item => (
                 <div className="box" key={item.key}>
